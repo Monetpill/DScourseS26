@@ -20,6 +20,7 @@ mydf <- bind_rows(mylist$result[-1])
 
 #(d) What type of object is mydf
 class(mydf)
+class(mydf$date)
 
 #(e) First nth rows
 
