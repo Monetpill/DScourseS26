@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{tabularray}
+\usepackage{xcolor}
+\usepackage{siunitx}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+
+\title{Problem Set 7}
+\author{Bee Nguyen}
+\date{March 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Details about wage.csv}
+
+\begin{table}[htbp]
+\centering
+\caption{Summary Statistics: Cleaned Wages Dataset}
+\label{tab:wages_summary}
+\begin{tabular}{lccccccc}
+\toprule
+& Unique & Missing Pct. & Mean & SD & Min & Median & Max \\
+\midrule
+logwage & 670 & 25 & 1.6 & 0.4 & 0.0 & 1.7 & 2.3 \\
+hgc & 16 & 0 & 13.1 & 2.5 & 0.0 & 12.0 & 18.0 \\
+tenure & 259 & 0 & 6.0 & 5.5 & 0.0 & 3.8 & 25.9 \\
+age & 13 & 0 & 39.2 & 3.1 & 34.0 & 39.0 & 46.0 \\
+\addlinespace
+\multicolumn{8}{c}{\textit{Categorical Variables}} \\
+\addlinespace
+college & college grad & 530 & 23.8 & & & & \\
+& not college grad & 1699 & 76.2 & & & & \\
+\addlinespace
+married & married & 1431 & 64.2 & & & & \\
+& single & 798 & 35.8 & & & & \\
+\bottomrule
+\end{tabular}
+\parbox{0.9\linewidth}{\footnotesize \textit{Note:} Sample restricted to observations with non-missing hgc and tenure (N=2,229). Log wage missing rate is 25\%.}
+\end{table}
+
+The \textit{logwage} variable is probably a case of MNAR (Missing Not At Random) because it is a self-reported variable. This means that respondents have the option to provide or not depending on circumstances such as shame in a low wage, attention to a high wage, level of education, and potentially the structure of the survey. 
+
+
+\section{Regression Results}
+
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\begin{tblr}[
+caption={Comparison of Regression Models with Different Missing Data Treatments},
+label={tab:regression_comparison},
+note{}={\textit{Note:} Standard errors in parentheses. Multiple imputation uses m=5 imputations. Complete cases n=1,669; all other methods use n=2,229.},
+]{
+colspec={lccccc},  % Changed to 5 columns
+hline{2}={1-5}{solid, black, 0.05em},
+hline{1}={1-5}{solid, black, 0.08em},
+hline{25}={1-5}{solid, black, 0.08em},
+column{2-5}={halign=c},
+column{1}={halign=l},
+}
+& Complete Cases & Mean Imputation & Regression Imputation & Multiple Imputation \\
+(Intercept) & \num{0.534} & \num{0.708} & \num{0.534} & \num{0.613} \\
+& (\num{0.146}) & (\num{0.116}) & (\num{0.112}) & (\num{0.142}) \\
+hgc & \num{0.062} & \num{0.050} & \num{0.062} & \num{0.059} \\
+& (\num{0.005}) & (\num{0.004}) & (\num{0.004}) & (\num{0.005}) \\
+college (not college grad) & \num{0.145} & \num{0.168} & \num{0.145} & \num{0.109} \\
+& (\num{0.034}) & (\num{0.026}) & (\num{0.025}) & (\num{0.031}) \\
+tenure & \num{0.050} & \num{0.038} & \num{0.050} & \num{0.043} \\
+& (\num{0.005}) & (\num{0.004}) & (\num{0.004}) & (\num{0.005}) \\
+tenure$^2$ & \num{-0.002} & \num{-0.001} & \num{-0.002} & \num{-0.001} \\
+& (\num{0.000}) & (\num{0.000}) & (\num{0.000}) & (\num{0.000}) \\
+age & \num{0.000} & \num{0.000} & \num{0.000} & \num{0.001} \\
+& (\num{0.003}) & (\num{0.002}) & (\num{0.002}) & (\num{0.003}) \\
+married (single) & \num{-0.022} & \num{-0.027} & \num{-0.022} & \num{-0.015} \\
+& (\num{0.018}) & (\num{0.014}) & (\num{0.013}) & (\num{0.020}) \\
+Num.Obs. & \num{1669} & \num{2229} & \num{2229} & \num{2229} \\
+Num.Imp. & & & & \num{5} \\
+R$^2$ & \num{0.208} & \num{0.147} & \num{0.277} & \num{0.221} \\
+R$^2$ Adj. & \num{0.206} & \num{0.145} & \num{0.275} & \num{0.219} \\
+AIC & \num{1179.9} & \num{1091.2} & \num{925.5} &  \\
+BIC & \num{1223.2} & \num{1136.8} & \num{971.1} &  \\
+Log.Lik. & \num{-581.936} & \num{-537.580} & \num{-454.737} &  \\
+F & \num{72.917} &  & \num{141.686} &  \\
+RMSE & \num{0.34} & \num{0.31} & \num{0.30} &  \\
+\end{tblr}
+\end{table}
+\end{landscape}
+
+
+
+If $\beta_1= 0.93$, the out of all our methods to account for the missing values of \textit{logwage}, the Mean Imputation method provided the closest estimate. One of the most prominent patterns I see within the table is that both estimates for the Complete Cases and Regression Imputation are identical except for their standard errors. This makes sense because using regression estimates from one model to predict the estimates of missing inputs would give similar estimates. However, the standard errors being lower could just be explanation to more observations rather than a characteristic of the model's prediction power. In terms of veracity, I can confidently say that just omitting variables does harm to the estimates of $\beta_1$, while actively using imputation methods help gauge the predicting power of the estimate. Mean imputation utilizes any potential patterns that exist within the data set itself whereas multiple imputation takes a brick and mortar approach, which could explain why both serve as closer predictors to the true estimate of $\beta_1$. 
+
+\section{Progress on my final project}
+
+I believe that my research project is going good, but also that I might be getting lost in the data that I'm trying to find. My research question follows recent administration's orders on immigration policy. I've looked into using TRAC Immigration data that feeds into early 2026, so that's a great thing. More importantly, I wanted to do a comparison between pre-Trump administration numbers in ICE detainment to post. 
+
+\end{document}
