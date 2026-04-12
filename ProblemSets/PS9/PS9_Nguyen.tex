@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Problem Set 9}
+\author{Bee Nguyen}
+\date{April 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 7}
+When comparing how many additional X variables there were between the original housing data and the prepped data, the numbers are 14 and 75, respectively. 
+
+\section{Question 8}
+
+Optimal $\lambda$ is 0.00139, In sample RSME 0.0677, Out of sample RSME 0.170
+
+\section{Question 9}
+
+Optimal $\lambda$  is 0.0233, In sample RSME 0.0682, Out of sample RSME 0.173
+
+\section{Question 10}
+
+You would not be able to estimate a simple linear regression when you have more columns than rows because there would be infinitely many possible solutions. 
+
+Both models have a much lower in-sample RMSE (~0.068) than out-of-sample RMSE 
+(~0.17), which means they fit the training data better than new data. This is 
+a sign of high variance (overfitting). Regularization helped, but the gap 
+suggests the models are still closer to the high-variance end of the tradeoff.
+\end{document}
