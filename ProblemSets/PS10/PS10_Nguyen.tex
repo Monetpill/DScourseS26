@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{booktabs}
+\usepackage{rotating}
+
+\title{Problem Set 10}
+\author{Bee Nguyen}
+\date{April 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{sidewaystable}[h]
+\section{Model Accuracies}
+
+\centering
+\caption{Optimal Tuning Parameters and Out-of-Sample Accuracy}
+\begin{tabular}{lcccccccccc}
+\toprule
+Algorithm & CV Acc. & Test Acc. & $\lambda$ & Cost Complexity & Tree Depth & Min $n$ & Hidden Units & Neighbors & Cost & $\sigma$ \\
+\midrule
+Logit & 0.846 & 0.853 & $1\times10^{-10}$ & --   & --  & --  & --  & --  & --   & --   \\
+Tree  & 0.859 & 0.868 & --                & 0.001 & 15 & 10  & --  & --  & --   & --   \\
+NNet  & 0.846 & 0.852 & 1.00              & --   & --  & --  & 5   & --  & --   & --   \\
+kNN   & 0.838 & 0.843 & --                & --   & --  & --  & --  & 30  & --   & --   \\
+SVM   & 0.852 & 0.864 & --                & --   & --  & --  & --  & --  & 1.00 & 0.25 \\
+\bottomrule
+\multicolumn{11}{l}{\footnotesize Note: Accuracy reported on held-out test set (20\% of sample). Models tuned via 3-fold cross-validation on training set.} \\
+\end{tabular}
+\end{sidewaystable}
+ 
+Overall the algorithms performed pretty similarly to each other, with test accuracies ranging from 0.843 to 0.868. The decision tree came out on top and kNN was the worst, but honestly the gap between all of them is pretty small so it is hard to say any one algorithm is clearly better than the others for this dataset.
+
+\end{document}
