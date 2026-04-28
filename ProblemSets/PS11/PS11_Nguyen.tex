@@ -1,0 +1,238 @@
+\documentclass[12pt]{article}
+ 
+% ---- Packages ----
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs}
+ 
+% ---- Double spacing ----
+\doublespacing
+ 
+% ---- Float placement: tables and figures at end ----
+\floatplacement{figure}{p}
+\floatplacement{table}{p}
+ 
+\title{Immigration Enforcement and Labor Market Effects\\
+       in Immigrant-Intensive Industries}
+\author{Bee Nguyen\\
+        \small Department of Economics, University of Oklahoma}
+\date{April 2026}
+
+
+% ---- Bibliography style ----
+\bibliographystyle{aer}
+ 
+\begin{document}
+ 
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    {\LARGE\bfseries Immigration Enforcement and Labor Market Effects\\[0.3cm]
+    in Immigrant-Intensive Industries\par}
+    \vspace{1.5cm}
+    {\large Bee Nguyen\par}
+    {\normalsize Department of Economics, University of Oklahoma\par}
+    \vspace{1cm}
+    {\large April 2026\par}
+    \vspace{2cm}
+
+\end{titlepage}
+\newpage
+ 
+
+\section{Introduction}
+
+ 
+The United States experienced a significant shift in immigration enforcement following the 2017 presidential transition, driven by executive orders expanding interior enforcement and broadening deportation priorities. These policies created substantial labor supply shocks in industries historically dependent on immigrant workers, including food services, construction, and food manufacturing. Analyzing the effects of these enforcement changes allows us to evaluate the economic costs associated with restrictive immigration policy and provides insight into the potential impacts of current enforcement efforts under the second Trump administration.
+
+This paper examines whether states with higher pre-existing immigrant labor concentration in target industries experienced greater employment declines following the 2017 enforcement surge relative to states with lower immigrant labor dependence. Using microdata from the Current Population Survey Annual Social and Economic Supplement (CPS ASEC) accessed via IPUMS for 2014–2020 cross walked with QCEW Data, we employ a difference-in-differences strategy to estimate the differential employment effects of the enforcement shock. States are classified as high-exposure based on their pre-treatment immigrant labor share in agriculture, construction, food manufacturing, and food services.
+ 
+\section{Literature Review}
+
+The discussion about immigration in regard to policy enforcement has always been a debate during every single presidential election. As we move into a new age of American politics, it is important now than ever to evaluate previous administrative actions on immigration policy to help gauge the importance of current enforcement. It is undeniable that immigrants bring immense value to many different industries in the United States. In fact, \citet{borjas2019} acknowledges in his working paper that immigration broadly affects economic growth through its interaction with capital accumulation and labor market competition, though he notes the distributional effects are uneven especially with native workers in directly competing roles potentially facing wage pressure while the broader economy benefits. The direction I want to take with this paper is to address the importance of workers in industries that might not necessarily be classified as ``high-skilled'', such as fast-food or construction. I must preface that it doesn't mean that these industries lack skilled labor, but rather when compared to industries that require professional degrees, one could argue the accessibility varies greatly. This matters greatly as many immigrants who are vulnerable to enforcement policies fall under the umbrella of these target industries.
+
+While this paper utilizes data on formal reports of employment through employers of surveys, it is important to note the impacts of undocumented immigrants participating in these target industries. Throughout the presidential debate of 2016, the topic of unauthorized workers was a main front into incorporating effective immigration policies. Philip Martin notes in his paper that the sheer degree of Trump's plans to restrict immigration through extensive means could be ``disruptive to American agriculture'' \citep[p.~1]{martin2017}. What this paper analyzes is to what degree do these policies affect immigrant heavy industries such as agriculture. The mission to bring back jobs for American citizens through extensive citizenship application requirements and lengthened citizenship processes potentially poses a harm into industries that rely on immigrant labor. Additionally, enforcing these policies require extensive expenditures of tax payer dollars, which ironically the same immigrants pay towards. Humanitarian programs were actually being cut off from federal funding as a result of these enforcement initiatives \citep[p.~6]{pierce2018}. Analysis of the effects of the removal of these programs isn't necessarily captured in my paper, but the implications of changes in total employment could run into government funded programs like SNAP and Social Security.
+
+Building on this body of work, the theoretical foundation for understanding why enforcement driven reductions in immigrant labor do not necessarily translate into job gains for native workers has been well established. Research about this reveals that because immigrant and native workers tend to fill complementary roles rather than directly competing ones, removing immigrant labor can actually hurt overall job creation in affected industries \citep{chassamboulli2015}. This is particularly relevant to the target industries this paper covers. When thinking about this empirically, immigration enforcement has been found to significantly reduce immigrant employment with spillover effects onto native workers in related roles \citep{east2023}. What my goal for this paper is to build on these findings by applying a difference-in-differences strategy at the MSA level, using pre-existing immigrant labor concentration as a way to measure which states were more exposed to the 2017 enforcement surge and evaluating how that exposure translated into changes in total employment across our target industries.
+
+ 
+\section{Data}
+ 
+This paper uses two primary data sources linked through a geographic
+crosswalk.
+ 
+\textbf{CPS ASEC.} The primary source for constructing the pre-treatment variables is the CPS ASEC microdata accessed via IPUMS, covering the years 2014-2020. The CPS ASEC is a nationally representative survey of U.S. households that combines data across the US Census Bureau and the Bureau of Labor Statistics. The sample is restricted to individuals
+aged 16--64 years who are ASEC respondents with non-missing employment status. The immigrant status is defined as foreign-born (NATIVITY $\neq$ 1). Target industries are identified using CPS industry codes corresponding to agriculture, construction, food manufacturing, and food services. I used the CPS data to specifically construct the pre-treatment immigrant labor share by state and used those numbers to determine which states classified as high immigrant or low immigrant in our target industries. It is important to note that the IPUMS industry classification is based on the 2017 Census Classification Scheme, which lists out the numerous industries that compose the labor force. This code system is not the same as QCEW. 
+ 
+\textbf{QCEW.} The primary outcome data comes from the QCEW, which I accessed through the BLS public API. The QCEW is an employer-reported dataset that provides annual average employment counts and average annual pay at the county level by NAICS industry code. I specifically pulled data for the four target industries (agriculture, NAICS 11; construction, NAICS 23; food manufacturing, NAICS 311; and food services, NAICS 722) for all counties within metropolitan statistical areas from 2014 to 2020. Since the QCEW reports at the county level but my analysis is at the MSA level, I used a Census Bureau reference file that maps each county to its corresponding metro area to conjure the county employment counts up to the MSA level. This gives me total employment in target industries for each MSA in each year, which serves as the main outcome variable in the difference-in-differences regression.
+ 
+\textbf{Crosswalk.} Since the QCEW and CPS data are organized at different geographic levels, I needed a way to connect them. I did this by using a Census Bureau reference file that links each county to its metro area, which allowed me to match MSA-level employment outcomes from the QCEW to the state-level immigrant share classifier from the CPS. One limitation worth noting is that some metro areas span across two states, like Kansas City spanning Missouri and Kansas. In those cases I just kept the first state match, which means some border MSAs may be assigned the wrong state's immigrant share.
+ 
+\textbf{Summary Statistics.} Table 1 presents summary statistics for
+the analysis sample.
+
+\section{Empirical Methods}
+
+This paper uses a difference-in-differences design to estimate the causal effect of the 2017 immigration enforcement surge on employment in immigrant-intensive industries. The main specification is estimated as an event study:
+
+\begin{equation}
+Y_{mt} = \alpha + \sum_{\tau \neq 2016} \beta_\tau (HighImmigrant_s \times \mathbf{1}[\tau = t]) + \gamma_m + \delta_t + \varepsilon_{mt}
+\end{equation}
+
+where $Y_{mt}$ is log total employment in target industries for MSA $m$ in year $t$. $HighImmigrant_s$ equals one if the state containing MSA $m$ had an above-median immigrant labor share in target industries during 2014--2016, constructed from CPS ASEC microdata. Rather than producing a single average post-treatment estimate, this specification produces a separate coefficient $\beta_t$ for each year relative to 2016, allowing me to trace how effects evolved over time. MSA fixed effects $\gamma_m$ absorb time-invariant differences across metro areas, and year fixed effects $\delta_t$ absorb economy-wide shocks common to all MSAs in a given year. Standard errors are clustered at the state level since treatment is assigned at the state level. Additionally, States below the median pre-treatment immigrant labor share serve as the control group, as they were less exposed to the enforcement shock and provide the counterfactual 
+employment trend for high-immigrant states.
+
+The identifying assumption is parallel trends: in the absence of the 2017 enforcement surge, employment in target industries would have evolved similarly across high and low immigrant states. This assumption is assessed by examining the pre-period coefficients for 2014 and 2015, which should be statistically indistinguishable from zero if the assumption holds.
+
+ 
+\section{Findings}
+
+
+The main event study results are reported in Table 2 and visualized in
+Figure 1. Contrary to the hypothesis that increased immigration enforcement would reduce immigrant labor participation, our DID regression reveals that years following the inauguration of the Trump Administration show statistically significant increases in immigrant heavy industries. 
+ 
+\begin{itemize}
+    \item 2017: $\hat{\beta} = 0.018$ ($p = 0.137$) — insignificant
+    \item 2018: $\hat{\beta} = 0.051$ ($p = 0.001$) — significant
+    \item 2019: $\hat{\beta} = 0.047$ ($p = 0.007$) — significant
+    \item 2020: $\hat{\beta} = 0.047$ ($p = 0.024$) — significant
+\end{itemize}
+ 
+High-immigrant states saw approximately 5 percent relatively higher
+employment in target industries compared to low-immigrant states by
+2018--2019. The overall model fit is strong (Adj. $R^2 = 0.991$),
+though most of this is attributable to the MSA and year fixed effects.
+ 
+
+\section{Conclusion}
+
+ 
+This paper delves into the impacts of immigration policy surges on target industries with high immigrant share labor percentages. We reveal that, through a comprehensive Difference in Difference strategy,  industries that have predominately larger shares of immigrant labor increased in total employment despite preexisting assumptions of restrictive immigration policies. We determine this by evaluating the difference in total employment between high and low immigration labor share states. The findings can be generalized as such: 
+ 
+\begin{itemize}
+    \item Pre-trends are flat and statistically insignificant, supporting
+          the parallel trends assumption
+    \item High-immigrant states experienced \textit{relatively stronger}
+          employment growth in target industries post-2017, contrary to
+          the enforcement-reduces-employment hypothesis
+    \item The positive coefficient is most likely explained by a
+          combination of macroeconomic confounding, sanctuary city
+          policies limiting enforcement in high-immigrant states, and
+          measurement error from assigning state-level treatment to
+          MSA-level outcomes
+\end{itemize}
+ 
+However, even though my regression produced statistically significant results for an alternative hypothesis, it is important to note the numerous limitations that constrain the statistical power of the model.
+
+\begin{itemize}
+    \item Multi-state MSA crosswalk arbitrarily assigns one state's
+          immigrant share to border MSAs
+    \item State-level treatment classifier is too coarse for MSA-level
+          outcomes
+    \item QCEW captures only formal employment, missing informal labor
+          market responses
+    \item The 2017--2019 macroeconomic expansion was concentrated in
+          large dynamic states that are also high-immigrant states
+    \item Sanctuary city policies mean high-immigrant states may have
+          faced \textit{less} enforcement intensity, flipping the
+          expected sign
+    \item 2020 COVID-19 shock introduces noise in the post-treatment
+          period
+\end{itemize}
+
+If I intend to move forward with this research project, I would incorporate ACS data with more detailed information on NAICS industries that would provide a narrower scope on my observed MSAs. I chose to cluster my observations by state to better account for the preexisting trends in a particular region. However, I believe moving forward I would attempt to use county-level that has more revealing statistical values useful to my goal of providing interpretable estimates. 
+ 
+
+% References
+% ================================================================
+\newpage
+\bibliography{PS11_Nguyen}
+ 
+% ================================================================
+% Figures and Tables
+% ================================================================
+\newpage
+\section*{Figures and Tables}
+
+\begin{table}[h]
+\centering
+\caption{Summary Statistics by Treatment Group}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\hline\hline
+ & \multicolumn{2}{c}{Low Immigrant ($N=3,276$)} & \multicolumn{2}{c}{High Immigrant ($N=3,210$)} & & \\
+ & Mean & Std. Dev. & Mean & Std. Dev. & Diff. & Std. Error \\
+\hline
+Log Employment     & 8.4       & 1.2       & 8.9       & 1.5       & 0.5      & 0.0    \\
+Total Employment   & 11,169.6  & 24,221.1  & 30,140.2  & 87,998.7  & 18,970.7 & 1,609.8 \\
+Avg. Annual Pay    & 26,504.7  & 8,077.0   & 27,948.0  & 8,632.2   & 1,443.3  & 207.7  \\
+\hline\hline
+\end{tabular}%
+}
+\begin{minipage}{\textwidth}
+\vspace{6pt}
+\small\textit{Notes:} Unit of observation is MSA-year. Low and High Immigrant refer to states below and above the median pre-treatment immigrant labor share (2014--2016) in target industries, constructed from CPS ASEC microdata. Total Employment and Average Annual Pay are from QCEW for 2014--2020.
+\end{minipage}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Event Study Estimates: Log Employment in Target Industries}
+\begin{tabular}{lc}
+\hline\hline
+ & (1) \\
+\hline
+2014 $\times$ High Immigrant & $-0.011$ \\
+ & $(0.014)$ \\
+2015 $\times$ High Immigrant & $-0.004$ \\
+ & $(0.011)$ \\
+2017 $\times$ High Immigrant & $0.018$ \\
+ & $(0.012)$ \\
+2018 $\times$ High Immigrant & $0.051^{***}$ \\
+ & $(0.015)$ \\
+2019 $\times$ High Immigrant & $0.047^{***}$ \\
+ & $(0.017)$ \\
+2020 $\times$ High Immigrant & $0.047^{**}$ \\
+ & $(0.020)$ \\
+\hline
+Observations & 6,486 \\
+Adj. $R^2$ & 0.991 \\
+MSA Fixed Effects & Yes \\
+Year Fixed Effects & Yes \\
+\hline\hline
+\end{tabular}
+\begin{minipage}{0.5\textwidth}
+\vspace{6pt}
+\small\textit{Notes:} Dependent variable is log total employment in target industries. Standard errors clustered at the state level in parentheses. Reference year is 2016. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.10$.
+\end{minipage}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{event_study_plot.pdf}
+\caption{Event Study: Employment in Immigrant-Intensive Industries}
+\begin{minipage}{0.85\textwidth}
+\vspace{6pt}
+\small\textit{Notes:} Event study estimates of log employment in target
+industries (agriculture, construction, food manufacturing, food services).
+High-immigrant states defined as those above the median pre-treatment
+immigrant labor share (2014--2016). Coefficients are relative to 2016.
+Dashed vertical line marks treatment onset (2017). 95\% confidence
+intervals shown. Standard errors clustered at the state level.
+\end{minipage}
+\end{figure}
+
+
+\end{document}
+ 
