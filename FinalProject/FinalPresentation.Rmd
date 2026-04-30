@@ -1,0 +1,86 @@
+---
+title: "Immigration Enforcement and Labor Market Effects in Immigrant-Intensive Industries"
+author: "Bee Nguyen"
+date: "April 2026"
+output: 
+  ioslides_presentation:
+    slide_level: 2
+---
+
+## Introduction
+
+* U.S. immigration enforcement surged after January 2017
+
+* Immigrants concentrate predominantly in four industries:
+  agriculture, construction, food manufacturing, food services
+
+* Theory predicts enforcement reduces labor supply in these sectors
+
+* **Research Question:** Did high-immigrant states see different 
+  employment outcomes after 2017?
+
+
+## Data
+
+* **CPS ASEC (2014-2020):** individual-level data on nativity, 
+  employment, and industry used to classify states
+
+* **QCEW (2014-2020):** employer-reported job counts at the 
+  MSA level across four target industries
+
+* 927 MSAs observed over 7 years (6,486 MSA-year observations)
+
+* 26 high-immigrant states vs 25 low-immigrant states
+
+* Mean immigrant labor share: 24.8% across target industries
+
+## Methods {.smaller}
+
+* **Difference-in-differences** design comparing high vs low immigrant states before and after 2017
+
+$$Y_{mt} = \alpha + \sum_{\tau \neq 2016} \beta_\tau (HighImmigrant_s \times \mathbf{1}[\tau = t]) + \gamma_m + \delta_t + \varepsilon_{mt}$$
+
+* **Treatment group:** States above median pre-treatment immigrant labor share
+* **Control group:** States below median pre-treatment immigrant labor share
+
+
+* Year-by-year estimates trace how effects evolved over time
+* MSA and year fixed effects control for confounding factors
+
+
+## Findings {.smaller}
+
+| Year | Estimate | Std. Error | Significance |
+|------|----------|------------|--------------|
+| 2014 | -0.011   | (0.014)    |              |
+| 2015 | -0.004   | (0.011)    |              |
+| 2017 |  0.018   | (0.012)    |              |
+| 2018 |  0.051   | (0.015)    | ***          |
+| 2019 |  0.047   | (0.017)    | ***          |
+| 2020 |  0.047   | (0.020)    | **           |
+
+* Pre-2017 coefficients are small and insignificant -- 
+  parallel trends assumption supported
+* Effects emerge in 2018 and persist through 2020
+* High-immigrant states saw roughly **5% more employment** 
+  in target industries relative to low-immigrant states
+
+
+## Conclusion
+
+**What did we learn?**
+
+* High-immigrant states saw stronger employment growth 
+  post-2017, contrary to expectations
+
+**Why is this important?**
+
+* Enforcement effects on labor markets are more complex 
+  than theory predicts
+* Relevant to ongoing enforcement efforts today
+
+**Limitations**
+
+* Treatment classifier too coarse
+* QCEW misses informal employment
+* Macroeconomic expansion may confound results
